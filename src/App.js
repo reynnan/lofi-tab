@@ -3,25 +3,14 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 
 import Header from "./components/Header";
+import Background from "./components/Background";
 import { makeStyles } from "@material-ui/core/styles";
-import { getRandomBackground } from "./utils/getRandomBackground";
-import {
-  getFavoriteBackground,
-  toggleFavoriteBackground,
-  clearFavoriteBackground,
-} from "./utils/localStorageBackground";
+import { useSettings } from './hooks/useSettings';
+import { getRandomNumber } from './utils/getRandomNumber';
+import { LOFI_GIFS } from './constants';
 import OpenWeatherClient from "./clients/OpenWeather";
 
 const useStyles = makeStyles({
-  lofiBg: {
-    background: (props) => `url(${props.backgroundUrl})`,
-    backgroundRepeat: "no-repeat !important",
-    backgroundSize: "cover !important",
-    backgroundPosition: "center !important",
-    height: "100% !important",
-    display: "flex",
-    flexDirection: "column",
-  },
   weatherWrapper: {
     display: "flex",
     flexDirection: "column",
@@ -33,21 +22,18 @@ const useStyles = makeStyles({
   },
 });
 
-const shuffleBackground = () => {
-  clearFavoriteBackground();
-  return getRandomBackground();
-};
+const getRandomBgIndex = () => getRandomNumber(0, LOFI_GIFS.length - 1);
 
-const INIT_STATE = getFavoriteBackground()
-  ? getFavoriteBackground()
-  : getRandomBackground();
+const getBgIndex = (favoriteBgIndex) => favoriteBgIndex
+  ? favoriteBgIndex
+  : getRandomBgIndex();
 
 const App = () => {
-  const [bgUrl, setBgUrl] = React.useState(INIT_STATE);
+  const { settings, setFavoriteBackground } = useSettings();
+  const [bgIndex, setBgIndex] = React.useState(getBgIndex(settings.favoriteBackground));
   const [weather, setWeather] = React.useState("Loading...");
-  const classes = useStyles({
-    backgroundUrl: bgUrl,
-  });
+
+  const classes = useStyles();
 
   React.useEffect(async () => {
     const data = await OpenWeatherClient.getCurrentWeather();
@@ -58,12 +44,14 @@ const App = () => {
     });
   }, []);
 
+  const isFavorite = bgIndex === settings.favoriteBackground;
+
   return (
-    <div className={classes.lofiBg}>
+    <Background bgIndex={bgIndex}>
       <Header
-        shuffle={() => setBgUrl(shuffleBackground())}
-        toggleStar={() => toggleFavoriteBackground(bgUrl)}
-        isStarred={bgUrl === getFavoriteBackground()}
+        shuffle={() => setBgIndex(getRandomBgIndex())}
+        toggleStar={() => isFavorite ? setFavoriteBackground() : setFavoriteBackground(bgIndex)}
+        isStarred={isFavorite}
       />
       <main className={classes.weatherWrapper}>
         <Typography
@@ -83,12 +71,12 @@ const App = () => {
       </main>
       <footer>
         <Typography variant="subtitle2">
-          <Link target="_blank" color="secondary" href={bgUrl}>
+          <Link target="_blank" color="secondary" href={LOFI_GIFS[bgIndex]}>
             Gif Source
           </Link>
         </Typography>
       </footer>
-    </div>
+    </Background>
   );
 };
 

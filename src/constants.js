@@ -34,4 +34,9 @@ const LOFI_GIFS = [
   "https://uploads.spiritfanfiction.com/fanfics/historias/202006/a-linha-tenue-entre-tua-arte-e-meu-corpo-19587187-110620201744.gif",
 ];
 
-export { LOFI_GIFS };
+const MEASUREMENT_SYSTEMS = {
+  METRIC: 'METRIC',
+  IMPERIAL: 'IMPERIAL',
+}
+
+export { LOFI_GIFS, MEASUREMENT_SYSTEMS };

@@ -9,11 +9,8 @@ import StarIcon from "@material-ui/icons/Star";
 import PopOverOnHover from "./PopOverOnHover";
 
 const Header = ({ shuffle, toggleStar, isStarred }) => {
-  const [isStar, setStar] = React.useState(isStarred);
-
   const toggle = () => {
     toggleStar();
-    setStar((state) => !state);
   };
 
   return (
@@ -30,7 +27,6 @@ const Header = ({ shuffle, toggleStar, isStarred }) => {
               aria-label="random background"
               onClick={() => {
                 shuffle();
-                setStar(false);
               }}
               color="secondary"
             >
@@ -44,7 +40,7 @@ const Header = ({ shuffle, toggleStar, isStarred }) => {
             onClick={toggle}
             color="secondary"
           >
-            {isStar ? (
+            {isStarred ? (
               <PopOverOnHover popOverText="Unfavorite background">
                 <StarIcon />
               </PopOverOnHover>
