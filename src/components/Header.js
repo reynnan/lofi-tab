@@ -35,21 +35,19 @@ const Header = ({ shuffle, toggleStar, isStarred }) => {
           </PopOverOnHover>
         </Grid>
         <Grid item>
-          <IconButton
-            aria-label="set background as favorite"
-            onClick={toggle}
-            color="secondary"
-          >
-            {isStarred ? (
-              <PopOverOnHover popOverText="Unfavorite background">
+          <PopOverOnHover popOverText={isStarred ? 'Unfavorite background' : 'Set default background'}>
+            <IconButton
+              aria-label={isStarred ? 'unfavorite background' : 'set background as favorite'}
+              onClick={toggle}
+              color="secondary"
+            >
+              {isStarred ? (
                 <StarIcon />
-              </PopOverOnHover>
-            ) : (
-              <PopOverOnHover popOverText="Set default background">
+              ) : (
                 <StarOutlineIcon />
-              </PopOverOnHover>
-            )}
-          </IconButton>
+              )}
+            </IconButton>
+          </PopOverOnHover>
         </Grid>
       </Grid>
     </header>
