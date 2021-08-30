@@ -28,14 +28,12 @@ export default function PopOverOnHover({ popOverText, children }) {
 
   return (
     <React.Fragment>
-      <Typography
-        aria-owns={open ? "mouse-over-popover" : undefined}
-        aria-haspopup="true"
-        onMouseEnter={handlePopoverOpen}
-        onMouseLeave={handlePopoverClose}
-      >
-        {children}
-      </Typography>
+      {React.cloneElement(children, {
+        'aria-owns': open ? "mouse-over-popover" : undefined,
+        'aria-haspopup': true,
+        'onMouseEnter': handlePopoverOpen,
+        'onMouseLeave': handlePopoverClose,
+      })}
       <Popover
         className={classes.popover}
         classes={{

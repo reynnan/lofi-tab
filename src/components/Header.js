@@ -25,18 +25,18 @@ const Header = ({ shuffle, toggleStar, isStarred }) => {
         alignItems="center"
       >
         <Grid item>
-          <IconButton
-            aria-label="random background"
-            onClick={() => {
-              shuffle();
-              setStar(false);
-            }}
-            color="secondary"
-          >
-            <PopOverOnHover popOverText="Shuffle Background">
+          <PopOverOnHover popOverText="Shuffle Background">
+            <IconButton
+              aria-label="random background"
+              onClick={() => {
+                shuffle();
+                setStar(false);
+              }}
+              color="secondary"
+            >
               <ShuffleIcon />
-            </PopOverOnHover>
-          </IconButton>
+            </IconButton>
+          </PopOverOnHover>
         </Grid>
         <Grid item>
           <IconButton
