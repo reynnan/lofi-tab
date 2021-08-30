@@ -1,8 +1,10 @@
 import React from "react";
-import SettingsIcon from "@material-ui/icons/Settings";
+import PanoramaIcon from "@material-ui/icons/Panorama";
+import HelpIcon from "@material-ui/icons/Help";
 
 import Menu from "./Menu";
-import SettingsMenu from "./SettingsMenu";
+import BackgroundSettingsMenu from "./BackgroundSettingsMenu";
+import UnitsSettingsMenu from "./UnitsSettingsMenu";
 
 const MainMenu = ({ isOpen, onRequestClose }) => {
   const [selectedSubMenu, setSelectedSubMenu] = React.useState(-1);
@@ -17,18 +19,29 @@ const MainMenu = ({ isOpen, onRequestClose }) => {
 
   const items = [
     {
-      key: "settings",
-      text: "Settings",
-      icon: <SettingsIcon />,
+      key: "favoriteBackground",
+      text: "Background",
+      icon: <PanoramaIcon />,
       handleClick: getOpenSubmenuHandler(0),
+    },
+    {
+      key: "units",
+      text: "Units",
+      // Find a good icon for this
+      icon: <HelpIcon />,
+      handleClick: getOpenSubmenuHandler(1),
     },
   ];
 
   return (
     <React.Fragment>
       <Menu isOpen={isOpen} onRequestClose={onRequestClose} items={items} />
-      <SettingsMenu
+      <BackgroundSettingsMenu
         isOpen={selectedSubMenu === 0}
+        onRequestClose={handleSubMenuClose}
+      />
+      <UnitsSettingsMenu
+        isOpen={selectedSubMenu === 1}
         onRequestClose={handleSubMenuClose}
       />
     </React.Fragment>
