@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 100%;
+}
+
+body,
+html,
+#app {
+  height: 100%;
+}
+
+.lofi-bg {
+  background: url("https://i.pinimg.com/originals/62/d4/fd/62d4fd63e91a15d0ed51a8ee870c9081.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
