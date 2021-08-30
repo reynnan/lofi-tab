@@ -27,13 +27,13 @@ const BackgroundSettingsMenu = ({ isOpen, onRequestClose }) => {
     <React.Fragment>
       <Menu isOpen={isOpen} onRequestClose={onRequestClose}>
         <List>
-          {LOFI_GIFS.map((gifUrl, index) => {
+          {LOFI_GIFS.map((gifUrl) => {
             return (
               <ListItem
                 key={gifUrl}
                 button
-                selected={settings.favoriteBackground === index}
-                onClick={() => setFavoriteBackground(index)}
+                selected={settings.favoriteBackground === gifUrl}
+                onClick={() => setFavoriteBackground(gifUrl)}
               >
                 <div
                   className={classes.bgPreview}

@@ -1,7 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { LOFI_GIFS } from '../constants';
+import { LOFI_GIFS } from "../constants";
+import { getRandomNumber } from "../utils/getRandomNumber";
+
+const getRandomBgIndex = () => getRandomNumber(0, LOFI_GIFS.length - 1);
+export const getRandomBackground = () => LOFI_GIFS[getRandomBgIndex()];
 
 const useStyles = makeStyles({
   lofiBg: {
@@ -15,16 +19,12 @@ const useStyles = makeStyles({
   },
 });
 
-const Background = ({ children, bgIndex }) => {
+const Background = ({ children, url }) => {
   const classes = useStyles({
-    backgroundUrl: LOFI_GIFS[bgIndex],
+    backgroundUrl: url,
   });
 
-  return (
-    <div className={classes.lofiBg}>
-      {children}
-    </div>
-  )
-}
+  return <div className={classes.lofiBg}>{children}</div>;
+};
 
 export default Background;

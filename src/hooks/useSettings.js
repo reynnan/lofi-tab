@@ -6,7 +6,7 @@ import SettingsContext from "../contexts/settings";
 
 /**
  * @callback SetFavoriteBackground
- * @param {number} index 
+ * @param {string} url
  */
 
 /**
@@ -25,28 +25,29 @@ import SettingsContext from "../contexts/settings";
  * @returns {UseSettingsReturn}
  */
 const useSettings = () => {
-  const { settings, updateSettings, resetSettings } = useContext(SettingsContext);
+  const { settings, updateSettings, resetSettings } =
+    useContext(SettingsContext);
 
   const reset = () => {
     resetSettings();
-  }
+  };
 
-  const setFavoriteBackground = (index) => {
+  const setFavoriteBackground = (url) => {
     updateSettings({
       ...settings,
-      favoriteBackground: index,
+      favoriteBackground: url,
     });
-  }
+  };
 
   /**
-   * @param {'METRIC'|'IMPERIAL'} type 
+   * @param {'METRIC'|'IMPERIAL'} type
    */
   const setMeasurementSystem = (system) => {
     updateSettings({
       ...settings,
       measurementSystem: system,
     });
-  }
+  };
 
   return {
     settings,

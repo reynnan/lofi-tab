@@ -1,14 +1,12 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
 
 import Header from "./components/Header";
-import Background from "./components/Background";
+import Background, { getRandomBackground } from "./components/Background";
 import MainMenu from "./components/MainMenu";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSettings } from "./hooks/useSettings";
-import { getRandomNumber } from "./utils/getRandomNumber";
-import { LOFI_GIFS } from "./constants";
+
 import OpenWeatherClient from "./clients/OpenWeather";
 
 const useStyles = makeStyles({
@@ -23,20 +21,21 @@ const useStyles = makeStyles({
   },
 });
 
-const getRandomBgIndex = () => getRandomNumber(0, LOFI_GIFS.length - 1);
-
-const getBgIndex = (favoriteBgIndex) =>
-  favoriteBgIndex != undefined ? favoriteBgIndex : getRandomBgIndex();
-
 const App = () => {
-  const { settings, setFavoriteBackground } = useSettings();
-  const [bgIndex, setBgIndex] = React.useState(
-    getBgIndex(settings.favoriteBackground)
-  );
-  const [isMenuOpen, setMenuOpen] = React.useState(false);
-  const [weather, setWeather] = React.useState("Loading...");
-
   const classes = useStyles();
+  const { settings, setFavoriteBackground } = useSettings();
+  const hasFavorite = settings.favoriteBackground !== null;
+  /* 
+  It must be a better way of handling the current background
+  initializing a state value from another state seems weird
+  maybe creating a context that handle the favoriteBackground and
+  the current background can be a better solution than this
+  */
+  const [background, setBackground] = React.useState(() =>
+    hasFavorite ? settings.favoriteBackground : getRandomBackground()
+  );
+  const [weather, setWeather] = React.useState("Loading...");
+  const [isMenuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(async () => {
     const data = await OpenWeatherClient.getCurrentWeather();
@@ -47,17 +46,22 @@ const App = () => {
     });
   }, []);
 
-  const isFavorite = bgIndex === settings.favoriteBackground;
+  const shuffle = () => {
+    setBackground(getRandomBackground());
+    setFavoriteBackground(null);
+  };
 
   return (
-    <Background bgIndex={bgIndex}>
+    <Background url={background}>
       <Header
         openMenu={() => setMenuOpen(true)}
-        shuffle={() => setBgIndex(getRandomBgIndex())}
+        shuffle={shuffle}
         toggleStar={() =>
-          isFavorite ? setFavoriteBackground() : setFavoriteBackground(bgIndex)
+          hasFavorite
+            ? setFavoriteBackground(null)
+            : setFavoriteBackground(background)
         }
-        isStarred={isFavorite}
+        isStarred={hasFavorite}
       />
       <MainMenu isOpen={isMenuOpen} onRequestClose={() => setMenuOpen(false)} />
       <main className={classes.weatherWrapper}>
@@ -76,13 +80,6 @@ const App = () => {
           {weather.city}, {weather.country}
         </Typography>
       </main>
-      <footer>
-        <Typography variant="subtitle2">
-          <Link target="_blank" color="secondary" href={LOFI_GIFS[bgIndex]}>
-            Gif Source
-          </Link>
-        </Typography>
-      </footer>
     </Background>
   );
 };
