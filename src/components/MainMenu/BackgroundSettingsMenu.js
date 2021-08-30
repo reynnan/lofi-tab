@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 
-import Menu from '../Menu';
-import { useSettings } from '../../hooks/useSettings';
-import { LOFI_GIFS } from '../../constants';
+import Menu from "./Menu";
+import { useSettings } from "../../hooks/useSettings";
+import { LOFI_GIFS } from "../../constants";
 
 const useStyles = makeStyles({
   bgPreview: {
     backgroundRepeat: "no-repeat !important",
     backgroundSize: "cover !important",
     backgroundPosition: "center !important",
-    width: '208px',
-    height: '117px',
+    width: "208px",
+    height: "117px",
     display: "flex",
   },
 });
@@ -25,10 +25,7 @@ const BackgroundSettingsMenu = ({ isOpen, onRequestClose }) => {
 
   return (
     <React.Fragment>
-      <Menu
-        isOpen={isOpen}
-        onRequestClose={onRequestClose}
-      >
+      <Menu isOpen={isOpen} onRequestClose={onRequestClose}>
         <List>
           {LOFI_GIFS.map((gifUrl, index) => {
             return (
@@ -45,12 +42,12 @@ const BackgroundSettingsMenu = ({ isOpen, onRequestClose }) => {
                   }}
                 />
               </ListItem>
-            )
+            );
           })}
         </List>
       </Menu>
     </React.Fragment>
-  )
+  );
 };
 
 export default BackgroundSettingsMenu;

@@ -4,11 +4,11 @@ import Link from "@material-ui/core/Link";
 
 import Header from "./components/Header";
 import Background from "./components/Background";
-import MainMenu from "./components/menus/MainMenu";
+import MainMenu from "./components/MainMenu";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSettings } from './hooks/useSettings';
-import { getRandomNumber } from './utils/getRandomNumber';
-import { LOFI_GIFS } from './constants';
+import { useSettings } from "./hooks/useSettings";
+import { getRandomNumber } from "./utils/getRandomNumber";
+import { LOFI_GIFS } from "./constants";
 import OpenWeatherClient from "./clients/OpenWeather";
 
 const useStyles = makeStyles({
@@ -25,13 +25,14 @@ const useStyles = makeStyles({
 
 const getRandomBgIndex = () => getRandomNumber(0, LOFI_GIFS.length - 1);
 
-const getBgIndex = (favoriteBgIndex) => favoriteBgIndex != undefined
-  ? favoriteBgIndex
-  : getRandomBgIndex();
+const getBgIndex = (favoriteBgIndex) =>
+  favoriteBgIndex != undefined ? favoriteBgIndex : getRandomBgIndex();
 
 const App = () => {
   const { settings, setFavoriteBackground } = useSettings();
-  const [bgIndex, setBgIndex] = React.useState(getBgIndex(settings.favoriteBackground));
+  const [bgIndex, setBgIndex] = React.useState(
+    getBgIndex(settings.favoriteBackground)
+  );
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const [weather, setWeather] = React.useState("Loading...");
 
@@ -53,7 +54,9 @@ const App = () => {
       <Header
         openMenu={() => setMenuOpen(true)}
         shuffle={() => setBgIndex(getRandomBgIndex())}
-        toggleStar={() => isFavorite ? setFavoriteBackground() : setFavoriteBackground(bgIndex)}
+        toggleStar={() =>
+          isFavorite ? setFavoriteBackground() : setFavoriteBackground(bgIndex)
+        }
         isStarred={isFavorite}
       />
       <MainMenu isOpen={isMenuOpen} onRequestClose={() => setMenuOpen(false)} />
