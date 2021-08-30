@@ -10,9 +10,15 @@ import SettingsContext from "../contexts/settings";
  */
 
 /**
+ * @callback SetMeasurementSystem
+ * @param {'METRIC'|'IMPERIAL'} type
+ */
+
+/**
  * @typedef {object} UseSettingsReturn
  * @property {SettingsType} settings
  * @property {SetFavoriteBackground} setFavoriteBackground
+ * @property {SetMeasurementSystem} setMeasurementSystem
  */
 
 /**
