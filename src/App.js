@@ -1,27 +1,15 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
 
 import Header from "./components/Header";
+import Background, { getRandomBackground } from "./components/Background";
+import MainMenu from "./components/MainMenu";
 import { makeStyles } from "@material-ui/core/styles";
-import { getRandomBackground } from "./utils/getRandomBackground";
-import {
-  getFavoriteBackground,
-  toggleFavoriteBackground,
-  clearFavoriteBackground,
-} from "./utils/localStorageBackground";
+import { useSettings } from "./contexts/Settings";
+
 import OpenWeatherClient from "./clients/OpenWeather";
 
 const useStyles = makeStyles({
-  lofiBg: {
-    background: (props) => `url(${props.backgroundUrl})`,
-    backgroundRepeat: "no-repeat !important",
-    backgroundSize: "cover !important",
-    backgroundPosition: "center !important",
-    height: "100% !important",
-    display: "flex",
-    flexDirection: "column",
-  },
   weatherWrapper: {
     display: "flex",
     flexDirection: "column",
@@ -33,21 +21,12 @@ const useStyles = makeStyles({
   },
 });
 
-const shuffleBackground = () => {
-  clearFavoriteBackground();
-  return getRandomBackground();
-};
-
-const INIT_STATE = getFavoriteBackground()
-  ? getFavoriteBackground()
-  : getRandomBackground();
-
 const App = () => {
-  const [bgUrl, setBgUrl] = React.useState(INIT_STATE);
+  const classes = useStyles();
+  const { settings, dispatch } = useSettings();
   const [weather, setWeather] = React.useState("Loading...");
-  const classes = useStyles({
-    backgroundUrl: bgUrl,
-  });
+  const [isMenuOpen, setMenuOpen] = React.useState(false);
+  const hasFavorite = settings.favoriteBackground !== null;
 
   React.useEffect(async () => {
     const data = await OpenWeatherClient.getCurrentWeather();
@@ -58,13 +37,31 @@ const App = () => {
     });
   }, []);
 
+  const shuffle = () => {
+    dispatch({
+      type: "UPDATE_BACKGROUND",
+      payload: {
+        newBackground: getRandomBackground(),
+        setFavorite: false,
+      },
+    });
+  };
+
+  const toggleStar = () => {
+    dispatch({
+      type: "TOGGLE_FAVORITE",
+    });
+  };
+
   return (
-    <div className={classes.lofiBg}>
+    <Background url={settings.background}>
       <Header
-        shuffle={() => setBgUrl(shuffleBackground())}
-        toggleStar={() => toggleFavoriteBackground(bgUrl)}
-        isStarred={bgUrl === getFavoriteBackground()}
+        openMenu={() => setMenuOpen(true)}
+        shuffle={shuffle}
+        toggleStar={toggleStar}
+        isStarred={hasFavorite}
       />
+      <MainMenu isOpen={isMenuOpen} onRequestClose={() => setMenuOpen(false)} />
       <main className={classes.weatherWrapper}>
         <Typography
           variant="h1"
@@ -81,14 +78,7 @@ const App = () => {
           {weather.city}, {weather.country}
         </Typography>
       </main>
-      <footer>
-        <Typography variant="subtitle2">
-          <Link target="_blank" color="secondary" href={bgUrl}>
-            Gif Source
-          </Link>
-        </Typography>
-      </footer>
-    </div>
+    </Background>
   );
 };
 

@@ -5,15 +5,13 @@ import IconButton from "@material-ui/core/IconButton";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import StarIcon from "@material-ui/icons/Star";
+import MenuIcon from '@material-ui/icons/Menu';
 
 import PopOverOnHover from "./PopOverOnHover";
 
-const Header = ({ shuffle, toggleStar, isStarred }) => {
-  const [isStar, setStar] = React.useState(isStarred);
-
+const Header = ({ shuffle, toggleStar, isStarred, openMenu }) => {
   const toggle = () => {
     toggleStar();
-    setStar((state) => !state);
   };
 
   return (
@@ -26,34 +24,36 @@ const Header = ({ shuffle, toggleStar, isStarred }) => {
       >
         <Grid item>
           <IconButton
-            aria-label="random background"
-            onClick={() => {
-              shuffle();
-              setStar(false);
-            }}
+            aria-label="open menu"
+            onClick={openMenu}
             color="secondary"
           >
-            <PopOverOnHover popOverText="Shuffle Background">
-              <ShuffleIcon />
-            </PopOverOnHover>
+            <MenuIcon />
           </IconButton>
+          <PopOverOnHover popOverText="Shuffle Background">
+            <IconButton
+              aria-label="random background"
+              onClick={shuffle}
+              color="secondary"
+            >
+              <ShuffleIcon />
+            </IconButton>
+          </PopOverOnHover>
         </Grid>
         <Grid item>
-          <IconButton
-            aria-label="set background as favorite"
-            onClick={toggle}
-            color="secondary"
-          >
-            {isStar ? (
-              <PopOverOnHover popOverText="Unfavorite background">
+          <PopOverOnHover popOverText={isStarred ? 'Unfavorite background' : 'Set default background'}>
+            <IconButton
+              aria-label={isStarred ? 'unfavorite background' : 'set background as favorite'}
+              onClick={toggleStar}
+              color="secondary"
+            >
+              {isStarred ? (
                 <StarIcon />
-              </PopOverOnHover>
-            ) : (
-              <PopOverOnHover popOverText="Set default background">
+              ) : (
                 <StarOutlineIcon />
-              </PopOverOnHover>
-            )}
-          </IconButton>
+              )}
+            </IconButton>
+          </PopOverOnHover>
         </Grid>
       </Grid>
     </header>
