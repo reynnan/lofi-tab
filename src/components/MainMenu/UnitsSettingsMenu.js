@@ -7,14 +7,19 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 
 import Menu from "./Menu";
-import { useSettings } from "../../hooks/useSettings";
+import { useSettings } from "../../contexts/Settings";
 import { MEASUREMENT_SYSTEMS } from "../../constants";
 
 const UnitsSettingsMenu = ({ isOpen, onRequestClose }) => {
-  const { settings, setMeasurementSystem } = useSettings();
+  const { settings, dispatch } = useSettings();
 
   const handleChange = (event) => {
-    setMeasurementSystem(event.target.value);
+    dispatch({
+      type: "UPDATE_MEASUREMENT_SYSTEM",
+      payload: {
+        system: event.target.value,
+      },
+    });
   };
 
   return (

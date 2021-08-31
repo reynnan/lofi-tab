@@ -4,7 +4,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 
 import Menu from "./Menu";
-import { useSettings } from "../../hooks/useSettings";
+import { useSettings } from "../../contexts/Settings";
 import { LOFI_GIFS } from "../../constants";
 
 const useStyles = makeStyles({
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 });
 
 const BackgroundSettingsMenu = ({ isOpen, onRequestClose }) => {
-  const { settings, setFavoriteBackground } = useSettings();
+  const { settings, dispatch } = useSettings();
 
   const classes = useStyles();
 
@@ -33,7 +33,15 @@ const BackgroundSettingsMenu = ({ isOpen, onRequestClose }) => {
                 key={gifUrl}
                 button
                 selected={settings.favoriteBackground === gifUrl}
-                onClick={() => setFavoriteBackground(gifUrl)}
+                onClick={() => {
+                  dispatch({
+                    type: "UPDATE_BACKGROUND",
+                    payload: {
+                      newBackground: gifUrl,
+                      setFavorite: true,
+                    },
+                  });
+                }}
               >
                 <div
                   className={classes.bgPreview}

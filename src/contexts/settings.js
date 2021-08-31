@@ -1,65 +1,99 @@
 import React from "react";
+import { getRandomBackground } from "../components/Background";
 import { MEASUREMENT_SYSTEMS } from "../constants";
 import * as localStorage from "../utils/localStorage";
 
-/**
- * User settings values
- * @typedef {Object} SettingsType
- * @property {string} [favoriteBackground] - URL string of the user's favorite background
- * @property {'METRIC'|'IMPERIAL'} measurementSystem - What measurement system to use when displaying metrics. Imperial or Metric.\
- */
-
-/**
- * @type {SettingsType}
- */
 const DEFAULT_SETTINGS = {
+  background: null,
   favoriteBackground: null,
   measurementSystem: MEASUREMENT_SYSTEMS.METRIC,
 };
 
-let storage = localStorage.get();
+const INIT_SETTINGS = (() => {
+  const storage = localStorage.get();
+  if (!storage) {
+    localStorage.set({
+      favoriteBackground: null,
+      measurementSystem: MEASUREMENT_SYSTEMS.METRIC,
+    });
+    return DEFAULT_SETTINGS;
+  }
 
-if (!storage || !storage.settings) {
-  localStorage.set({
-    ...storage,
-    settings: DEFAULT_SETTINGS,
-  });
+  const { favoriteBackground, measurementSystem } = storage;
 
-  storage = localStorage.get();
-}
+  return {
+    background: favoriteBackground ? favoriteBackground : getRandomBackground(),
+    favoriteBackground,
+    measurementSystem,
+  };
+})();
+
+const settingsReducer = (state, action) => {
+  switch (action.type) {
+    case "UPDATE_BACKGROUND": {
+      const { newBackground, setFavorite } = action.payload;
+      const favoriteBackground = setFavorite ? newBackground : null;
+
+      localStorage.set({
+        ...localStorage.get(),
+        favoriteBackground,
+      });
+
+      return {
+        ...state,
+        favoriteBackground,
+        background: newBackground,
+      };
+    }
+
+    case "UPDATE_MEASUREMENT_SYSTEM": {
+      const { system } = action.payload;
+      localStorage.set({
+        ...localStorage.get(),
+        measurementSystem: system,
+      });
+
+      return {
+        ...state,
+        measurementSystem: system,
+      };
+    }
+
+    case "TOGGLE_FAVORITE": {
+      const hasFavorite = state.favoriteBackground === state.background;
+      const favoriteBackground = hasFavorite ? null : state.background;
+
+      localStorage.set({
+        ...localStorage.get(),
+        favoriteBackground,
+      });
+
+      return {
+        ...state,
+        favoriteBackground,
+      };
+    }
+  }
+};
 
 const SettingsContext = React.createContext();
 
-export const SettingsProvider = ({ children }) => {
-  const [settings, setSettings] = React.useState(storage.settings);
+const SettingsProvider = ({ children }) => {
+  const [settings, dispatch] = React.useReducer(settingsReducer, INIT_SETTINGS);
 
-  const updateSettings = (value) => {
-    localStorage.set({
-      ...localStorage.get(),
-      settings: value,
-    });
-
-    setSettings(value);
-  };
-
-  const resetSettings = () => {
-    localStorage.set({
-      ...localStorage.get(),
-      settings: DEFAULT_SETTINGS,
-    });
-
-    setSettings(DEFAULT_SETTINGS);
-  };
-
+  // NOTE: I *might* need to memoize this value
+  // http://kcd.im/optimize-context
+  const value = { settings, dispatch };
   return (
-    <SettingsContext.Provider
-      value={{ settings, updateSettings, resetSettings }}
-    >
+    <SettingsContext.Provider value={value}>
       {children}
     </SettingsContext.Provider>
   );
 };
 
-export const SettingsConsumer = SettingsContext.Consumer;
+const useSettings = () => {
+  const context = React.useContext(SettingsContext);
+  return context;
+};
 
-export default SettingsContext;
+export { SettingsProvider, useSettings };

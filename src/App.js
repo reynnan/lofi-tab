@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Background, { getRandomBackground } from "./components/Background";
 import MainMenu from "./components/MainMenu";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSettings } from "./hooks/useSettings";
+import { useSettings } from "./contexts/Settings";
 
 import OpenWeatherClient from "./clients/OpenWeather";
 
@@ -23,19 +23,10 @@ const useStyles = makeStyles({
 
 const App = () => {
   const classes = useStyles();
-  const { settings, setFavoriteBackground } = useSettings();
-  const hasFavorite = settings.favoriteBackground !== null;
-  /* 
-  It must be a better way of handling the current background
-  initializing a state value from another state seems weird
-  maybe creating a context that handle the favoriteBackground and
-  the current background can be a better solution than this
-  */
-  const [background, setBackground] = React.useState(() =>
-    hasFavorite ? settings.favoriteBackground : getRandomBackground()
-  );
+  const { settings, dispatch } = useSettings();
   const [weather, setWeather] = React.useState("Loading...");
   const [isMenuOpen, setMenuOpen] = React.useState(false);
+  const hasFavorite = settings.favoriteBackground !== null;
 
   React.useEffect(async () => {
     const data = await OpenWeatherClient.getCurrentWeather();
@@ -47,20 +38,27 @@ const App = () => {
   }, []);
 
   const shuffle = () => {
-    setBackground(getRandomBackground());
-    setFavoriteBackground(null);
+    dispatch({
+      type: "UPDATE_BACKGROUND",
+      payload: {
+        newBackground: getRandomBackground(),
+        setFavorite: false,
+      },
+    });
+  };
+
+  const toggleStar = () => {
+    dispatch({
+      type: "TOGGLE_FAVORITE",
+    });
   };
 
   return (
-    <Background url={background}>
+    <Background url={settings.background}>
       <Header
         openMenu={() => setMenuOpen(true)}
         shuffle={shuffle}
-        toggleStar={() =>
-          hasFavorite
-            ? setFavoriteBackground(null)
-            : setFavoriteBackground(background)
-        }
+        toggleStar={toggleStar}
         isStarred={hasFavorite}
       />
       <MainMenu isOpen={isMenuOpen} onRequestClose={() => setMenuOpen(false)} />

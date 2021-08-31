@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { SettingsProvider } from "./contexts/settings";
+import { SettingsProvider } from "./contexts/Settings";
 import "./index.css";
 
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
