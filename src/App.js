@@ -23,9 +23,6 @@ const useStyles = makeStyles({
     flexDirection: "column",
   },
   main: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
     margin: "auto",
   },
 });

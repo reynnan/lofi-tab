@@ -3,6 +3,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
+  main: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
   temperature: {
     fontWeight: 500,
   },
@@ -11,7 +16,7 @@ const useStyles = makeStyles({
 const Weather = ({ temperature, system, country, city }) => {
   const classes = useStyles();
   return (
-    <>
+    <div className={classes.main}>
       <Typography variant="h1" color="primary" className={classes.temperature}>
         {`${temperature} ${system}`}
       </Typography>
@@ -22,7 +27,7 @@ const Weather = ({ temperature, system, country, city }) => {
       >
         {city}, {country}
       </Typography>
-    </>
+    </div>
   );
 };
 
