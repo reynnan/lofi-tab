@@ -1,16 +1,16 @@
 {
   "name": "Lofi Tab",
   "description": "New tab to relax/study to",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 3,
   "permissions": ["geolocation"],
   "chrome_url_overrides": {
-    "newtab": "./dist/index.html"
+    "newtab": "index.html"
   },
   "icons": {
-    "16": "src/images/lofitab16.png",
-    "32": "src/images/lofitab32.png",
-    "48": "src/images/lofitab48.png",
-    "128": "src/images/lofitab128.png"
+    "16": "icons/lofitab16.png",
+    "32": "icons/lofitab32.png",
+    "48": "icons/lofitab48.png",
+    "128": "icons/lofitab128.png"
   }
 }
