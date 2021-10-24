@@ -17,7 +17,7 @@ const Weather = ({ temperature, system, country, city }) => {
   const classes = useStyles();
   return (
     <div className={classes.main}>
-      <Typography variant="h1" color="primary" className={classes.temperature}>
+      <Typography variant="h2" color="primary" className={classes.temperature}>
         {`${temperature} ${system}`}
       </Typography>
       <Typography
