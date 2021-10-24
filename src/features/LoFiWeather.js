@@ -29,17 +29,15 @@ const LoFiWeather = () => {
     }
   }, []);
 
-  return (
-    <>
-      <Weather
-        temperature={weather.temp}
-        city={weather.city}
-        country={weather.country}
-        system="º C"
-      />
+  if (weather.temp === "") return <CircularProgress />;
 
-      {weather.temp === "" && <CircularProgress />}
-    </>
+  return (
+    <Weather
+      temperature={weather.temp}
+      city={weather.city}
+      country={weather.country}
+      system="º C"
+    />
   );
 };
 
