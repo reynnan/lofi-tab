@@ -38,6 +38,7 @@ const INIT_STATE = getFavoriteBackground()
 
 const App = () => {
   const [bgUrl, setBgUrl] = React.useState(INIT_STATE);
+  const [playLofi, setPlayLofi] = React.useState(false);
   const classes = useStyles({
     backgroundUrl: bgUrl,
   });
@@ -48,9 +49,21 @@ const App = () => {
         shuffle={() => setBgUrl(shuffleBackground())}
         toggleStar={() => toggleFavoriteBackground(bgUrl)}
         isStarred={bgUrl === getFavoriteBackground()}
+        onPlayLPofi={() => setPlayLofi((state) => !state)}
+        isLofiPlaying={playLofi}
       />
       <main className={classes.main}>
-        <LoFiWeather />
+        {playLofi && (
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        )}
       </main>
       <footer>
         <Typography variant="subtitle2">

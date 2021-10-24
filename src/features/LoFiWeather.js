@@ -1,4 +1,5 @@
 import React from "react";
+import Box from "@material-ui/core/Box";
 import Weather from "../components/Weather";
 import OpenWeatherClient from "../clients/OpenWeather";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -12,6 +13,12 @@ const WEATHER_BASE = {
   temp: "",
 };
 const INIT = WEATHER_CACHE ? WEATHER_CACHE : WEATHER_BASE;
+
+const Loading = () => (
+  <Box sx={{ padding: 12 }}>
+    <CircularProgress />
+  </Box>
+);
 
 const LoFiWeather = () => {
   const [weather, setWeather] = React.useState(INIT);
@@ -29,17 +36,15 @@ const LoFiWeather = () => {
     }
   }, []);
 
-  return (
-    <>
-      <Weather
-        temperature={weather.temp}
-        city={weather.city}
-        country={weather.country}
-        system="º C"
-      />
+  if (weather.temp === WEATHER_BASE.temp) return <Loading />;
 
-      {weather.temp === "" && <CircularProgress />}
-    </>
+  return (
+    <Weather
+      temperature={weather.temp}
+      city={weather.city}
+      country={weather.country}
+      system="º C"
+    />
   );
 };
 
