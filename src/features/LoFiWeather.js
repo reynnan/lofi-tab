@@ -12,7 +12,7 @@ const WEATHER_BASE = {
   city: "",
   temp: "",
 };
-const INIT = WEATHER_CACHE ? WEATHER_CACHE : WEATHER_BASE;
+const INIT = WEATHER_CACHE ?? WEATHER_BASE;
 
 const Loading = () => (
   <Box sx={{ padding: 12 }}>
