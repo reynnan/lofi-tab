@@ -10,7 +10,7 @@ import {
   toggleFavoriteBackground,
   clearFavoriteBackground,
 } from "./utils/localStorageBackground";
-import LoFiWeather from "./features/LoFiWeather";
+import { CircularProgress, Fade } from "@material-ui/core";
 
 const useStyles = makeStyles({
   lofiBg: {
@@ -38,7 +38,10 @@ const INIT_STATE = getFavoriteBackground()
 
 const App = () => {
   const [bgUrl, setBgUrl] = React.useState(INIT_STATE);
-  const [playLofi, setPlayLofi] = React.useState(false);
+  const [playLofi, setPlayLofi] = React.useState({
+    play: false,
+    loading: false,
+  });
   const classes = useStyles({
     backgroundUrl: bgUrl,
   });
@@ -49,20 +52,33 @@ const App = () => {
         shuffle={() => setBgUrl(shuffleBackground())}
         toggleStar={() => toggleFavoriteBackground(bgUrl)}
         isStarred={bgUrl === getFavoriteBackground()}
-        onPlayLPofi={() => setPlayLofi((state) => !state)}
-        isLofiPlaying={playLofi}
+        onPlayLPofi={() =>
+          setPlayLofi((state) => ({ play: !state.play, loading: !state.play }))
+        }
+        isLofiPlaying={playLofi.play}
       />
       <main className={classes.main}>
-        {playLofi && (
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          />
+        {playLofi.play && (
+          <>
+            {playLofi.loading && <CircularProgress />}
+            <Fade
+              in={!playLofi.loading}
+              style={{ display: playLofi.loading ? "none" : "" }}
+            >
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/n61ULEU7CO0"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                frameBorder="0"
+                onLoad={() =>
+                  setPlayLofi((state) => ({ ...state, loading: false }))
+                }
+              />
+            </Fade>
+          </>
         )}
       </main>
       <footer>
