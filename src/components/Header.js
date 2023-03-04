@@ -30,7 +30,7 @@ const Header = ({
       <Grid container justifyContent="space-between" alignItems="flex-start">
         <Grid
           item
-          xs={10}
+          xs={6}
           container
           justifyContent="flex-start"
           alignItems="center"
@@ -90,7 +90,7 @@ const Header = ({
             )}
           </Grid>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item container justifyContent="flex-end" xs={6}>
           <LoFiWeather />
         </Grid>
       </Grid>
