@@ -15,8 +15,13 @@ const toggleFavoriteBackground = (bgUrl) => {
     : localStorage.setItem(LOCALSTORAGE_KEY, bgUrl);
 };
 
+const persistFavoriteBackground = (bgUrl) => {
+  localStorage.setItem(LOCALSTORAGE_KEY, bgUrl);
+};
+
 export {
   getFavoriteBackground,
   toggleFavoriteBackground,
   clearFavoriteBackground,
+  persistFavoriteBackground,
 };
