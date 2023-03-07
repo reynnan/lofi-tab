@@ -31,7 +31,7 @@ const LoFiWeather = () => {
         country: data.sys.country,
         temp: parseInt(data.main.temp),
       };
-      lscache.set(KEY, weather, 10);
+      lscache.set(KEY, weather, 30);
       setWeather(weather);
     }
   }, []);
