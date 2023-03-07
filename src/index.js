@@ -4,6 +4,7 @@ import App from "./App";
 import "./index.css";
 
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { BackgroundProvider } from "./providers/BackgroundProvider";
 
 const theme = createTheme({
   palette: {
@@ -19,7 +20,9 @@ const theme = createTheme({
 const mountNode = document.getElementById("app");
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <App />
+    <BackgroundProvider>
+      <App />
+    </BackgroundProvider>
   </ThemeProvider>,
   mountNode
 );

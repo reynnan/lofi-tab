@@ -10,21 +10,15 @@ import MusicOffIcon from "@material-ui/icons/MusicOff";
 
 import PopOverOnHover from "./PopOverOnHover";
 import LoFiWeather from "../features/LoFiWeather";
+import LofiMenu from "../features/LofiMenu";
 
 const Header = ({
   shuffle,
   toggleStar,
   isStarred,
-  onPlayLPofi,
+  onPlayLofi,
   isLofiPlaying,
 }) => {
-  const [isStar, setStar] = React.useState(isStarred);
-
-  const toggle = () => {
-    toggleStar();
-    setStar((state) => !state);
-  };
-
   return (
     <header>
       <Grid container justifyContent="space-between" alignItems="flex-start">
@@ -36,15 +30,15 @@ const Header = ({
           alignItems="center"
         >
           <Grid item>
+            <LofiMenu />
+          </Grid>
+          <Grid item>
             <IconButton
               aria-label="random background"
-              onClick={() => {
-                shuffle();
-                setStar(false);
-              }}
+              onClick={shuffle}
               color="secondary"
             >
-              <PopOverOnHover popOverText="Shuffle Background">
+              <PopOverOnHover popOverText="Shuffle background">
                 <ShuffleIcon />
               </PopOverOnHover>
             </IconButton>
@@ -52,10 +46,10 @@ const Header = ({
           <Grid item>
             <IconButton
               aria-label="set background as favorite"
-              onClick={toggle}
+              onClick={toggleStar}
               color="secondary"
             >
-              {isStar ? (
+              {isStarred ? (
                 <PopOverOnHover popOverText="Unfavorite background">
                   <StarIcon />
                 </PopOverOnHover>
@@ -71,9 +65,9 @@ const Header = ({
               <IconButton
                 aria-label="stop lofi music"
                 color="secondary"
-                onClick={onPlayLPofi}
+                onClick={onPlayLofi}
               >
-                <PopOverOnHover popOverText="Stop Lofi">
+                <PopOverOnHover popOverText="Stop lofi">
                   <MusicOffIcon />
                 </PopOverOnHover>
               </IconButton>
@@ -81,9 +75,9 @@ const Header = ({
               <IconButton
                 aria-label="play lofi music"
                 color="secondary"
-                onClick={onPlayLPofi}
+                onClick={onPlayLofi}
               >
-                <PopOverOnHover popOverText="Play Lofi">
+                <PopOverOnHover popOverText="Play lofi">
                   <MusicNoteIcon />
                 </PopOverOnHover>
               </IconButton>
