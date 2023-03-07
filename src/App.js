@@ -1,16 +1,10 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
-
-import Header from "./components/Header";
 import { makeStyles } from "@material-ui/core/styles";
-import { getRandomBackground } from "./utils/getRandomBackground";
-import {
-  getFavoriteBackground,
-  toggleFavoriteBackground,
-  clearFavoriteBackground,
-} from "./utils/localStorageBackground";
 import { CircularProgress, Fade } from "@material-ui/core";
+import LofiHeader from "./features/LofiHeader";
+import { useBackgroundState } from "./providers/BackgroundProvider";
 
 const useStyles = makeStyles({
   lofiBg: {
@@ -27,36 +21,19 @@ const useStyles = makeStyles({
   },
 });
 
-const shuffleBackground = () => {
-  clearFavoriteBackground();
-  return getRandomBackground();
-};
-
-const INIT_STATE = getFavoriteBackground()
-  ? getFavoriteBackground()
-  : getRandomBackground();
-
 const App = () => {
-  const [bgUrl, setBgUrl] = React.useState(INIT_STATE);
+  const bgState = useBackgroundState();
   const [playLofi, setPlayLofi] = React.useState({
     play: false,
     loading: false,
   });
   const classes = useStyles({
-    backgroundUrl: bgUrl,
+    backgroundUrl: bgState.url,
   });
 
   return (
     <div className={classes.lofiBg}>
-      <Header
-        shuffle={() => setBgUrl(shuffleBackground())}
-        toggleStar={() => toggleFavoriteBackground(bgUrl)}
-        isStarred={bgUrl === getFavoriteBackground()}
-        onPlayLPofi={() =>
-          setPlayLofi((state) => ({ play: !state.play, loading: !state.play }))
-        }
-        isLofiPlaying={playLofi.play}
-      />
+      <LofiHeader playLofi={playLofi} setPlayLofi={setPlayLofi} />
       <main className={classes.main}>
         {playLofi.play && (
           <>
@@ -83,7 +60,7 @@ const App = () => {
       </main>
       <footer>
         <Typography variant="subtitle2">
-          <Link target="_blank" color="secondary" href={bgUrl}>
+          <Link target="_blank" color="secondary" href={bgState.url}>
             Gif Source
           </Link>
         </Typography>
