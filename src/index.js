@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import "./index.css";
+import mixpanel from 'mixpanel-browser';
 
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { BackgroundProvider } from "./providers/BackgroundProvider";
+import "./index.css";
+
+mixpanel.init('80f7ab31c5d6764862077355fec92584');
 
 const theme = createTheme({
   palette: {

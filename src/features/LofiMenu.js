@@ -9,6 +9,7 @@ import {
   ACTIONS,
   useBackgroundState,
 } from "../providers/BackgroundProvider";
+import mixpanel from "mixpanel-browser"
 
 const useStyles = makeStyles({
   bgPreview: {
@@ -34,6 +35,7 @@ export default function LofiMenu() {
   const bgState = useBackgroundState();
   const bgDispatch = useBackgroundDispatch();
   const classes = useStyles();
+
   return (
     <SideMenu>
       <List className={classes.lofiList}>
@@ -42,7 +44,10 @@ export default function LofiMenu() {
             key={gifUrl}
             button
             selected={gifUrl === bgState.url}
-            onClick={() => bgDispatch(ACTIONS.SET_BACKGROUND(gifUrl))}
+            onClick={() => {
+              mixpanel.track('LofiMenu - Select favorite background', {gifUrl})
+              bgDispatch(ACTIONS.SET_BACKGROUND(gifUrl))}
+            }
           >
             <div
               className={classes.bgPreview}
