@@ -3,14 +3,19 @@ const URL = `https://api.openweathermap.org/data/2.5/weather?`;
 
 import { getLatLong } from "../utils/getLatLong";
 
+const unitSystemMap = {
+  "C": 'metric',
+  "F": 'imperial',
+};
+
 const OpenWeatherClient = {
-  getCurrentWeather: async () => {
+  getCurrentWeather: async (unit) => {
     const { lat, long } = await getLatLong();
     const queryParams = new URLSearchParams({
       lat: lat,
       lon: long,
       appid: API_KEY,
-      units: "metric",
+      units: unitSystemMap[unit] || "metric",
     });
     return fetch(URL + queryParams).then((res) => res.json());
   },
