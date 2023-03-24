@@ -5,7 +5,7 @@
   "manifest_version": 3,
   "permissions": ["geolocation"],
   "host_permissions": [
-    "*://api.mixpanel.com/*"
+    "https://api.mixpanel.com/*"
   ],
   "chrome_url_overrides": {
     "newtab": "index.html"
