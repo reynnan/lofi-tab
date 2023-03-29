@@ -1,3 +1,4 @@
+// TODO: remove as it was moved to storage..
 const LOCALSTORAGE_KEY = "LOFI_NEW_TAB";
 
 const getFavoriteBackground = () => {

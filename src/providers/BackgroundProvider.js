@@ -1,15 +1,10 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { getRandomBackground } from "../utils/getRandomBackground";
-import {
-  clearFavoriteBackground,
-  getFavoriteBackground,
-  persistFavoriteBackground,
-  toggleFavoriteBackground,
-} from "../utils/localStorageBackground";
+import bgStore from "../stores/bgStore";
 
 const INIT_STATE = {
-  url: getFavoriteBackground() ?? getRandomBackground(),
-  isFavorite: !!getFavoriteBackground(),
+  url: bgStore.getFavorite() ?? getRandomBackground(),
+  isFavorite: !!bgStore.getFavorite(),
 };
 
 const reducer = (state, action) => {
@@ -71,15 +66,15 @@ const useBackgroundDispatch = () => {
 
 const ACTIONS = {
   SET_BACKGROUND: (url) => {
-    persistFavoriteBackground(url);
+    bgStore.saveFavorite(url);
     return { type: "SET_BACKGROUND", payload: url };
   },
   TOGGLE_FAVORITE: (url) => {
-    toggleFavoriteBackground(url);
+    bgStore.toggleFavorite(url);
     return { type: "TOGGLE_FAVORITE" };
   },
   SHUFFLE_BACKGROUND: () => {
-    clearFavoriteBackground();
+    bgStore.clearFavorite();
     return { type: "SHUFFLE_BACKGROUND" };
   },
 };
