@@ -8,7 +8,8 @@ const getRandomInt = (min, max) => {
 
 const getRandomBackground = () => {
   const length = LOFI_GIFS.length;
-  return LOFI_GIFS[getRandomInt(0, length - 1)];
+  const url = LOFI_GIFS[getRandomInt(0, length - 1)];
+  return url;
 };
 
 export { getRandomBackground };
