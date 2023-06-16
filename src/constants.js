@@ -32,6 +32,28 @@ const LOFI_GIFS = [
   "https://data.whicdn.com/images/304446057/original.gif",
   "https://i.pinimg.com/originals/e3/5e/dd/e35eddd86f26ec8cbbc9f0673f034461.gif",
   "https://uploads.spiritfanfiction.com/fanfics/historias/202006/a-linha-tenue-entre-tua-arte-e-meu-corpo-19587187-110620201744.gif",
+  "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3lhN3prZTF1YXpmc3hwMHBkanE4eXU2c3p0eWRteGxkMGs2ajh0OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZYZEFjLzOV3fq/giphy.gif",
+  "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjQ5aGQ5cHRqZ3BxbDc3YWh3bGhpejNqZzdtMmU2bnhwNXNleTdocCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/eHQ5BsgBIBIGI/giphy.gif",
+  "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHkxNzIwOWI5MnQwNW9meG9zNWRhYndlY2VocGdhenB5ZmRpczF5aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Uz4cDaGXPxeuY/giphy.gif",
+  "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzViZTg5NzIwODA0MjJiYWMzNjkwNDBjYWFlMDQwOGQzMTMzOTIzYiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/Jbb3KS22397YQ/giphy.gif",
+  "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjI1MzY0NTVkMzJkN2MzODIxYjZlNWQ3ZTc3NjI2ZTY1YjA4MTE3MCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/oHsKFiT28Id0I/giphy.gif",
+  "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGN1aDU2YnpxZmhyM3E5Yzh6YjExN3g1YjVmNTE0Z2pyYndwdDRueSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YY9MdZisfM3x6/giphy.gif",
+  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnlieGltdHVjYnR0bWEzbTJobXI5aXJxd3AxaG5uNTBramdvY3piNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7uL3gPwnUBrvq/giphy.gif",
+  "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWZkYjRiNzA3OGUzZjI0MTZhZTA0NTUwYzRjYzg0OGRiZjk2Nzc5NSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/IzU4wcD554uGc/giphy.gif",
+  "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5tdTkyZWVremFubzk1dHRnd2E5dWkzaWZhMnJ4bDdnYzJkN2gzMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/K0yXL4cDnFrq0/giphy.gif",
+  "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDNjYTE0ZmRkOWM1Yzc0YTdhMzAwYWQ2ZmFlZjA4ZTQwZTA4NTM5NiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/oKLNQQ6OIeSU8/giphy.gif",
+  "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXozOGJha28zbjg2b3IydDRnczEyMHo3Y3kyZjA0MjBhaHYyeXU3aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/J4FsxFgZgN2HS/giphy.gif",
+  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZsOTVieGs1YjRleHhmZmxjb251dWZoZjdpenR5ZTFyZ3pieGNsciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KEVODnr6kaJws/giphy.gif",
+  "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3hkcWZ4YTR6Z2I0MGJodjAwMWRmZHBzdWZjajk1MGdyZzB4NGZtcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3CWtVCH72Fu7u/giphy.gif",
+  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGxsNXlnazJianFsYjduaTJiZm0xNmViNGxpYmpxOTlidm1qenRjdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BsJNWf7J70RJS/giphy.gif",
+  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWpsaTlkaTh2cW9jeTI1amMyNWd6a242ZmN5ejI1cmd1djBpMnlmciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1miiQ53ITadPAIkH7N/giphy.gif",
+  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjR3ejVvMGhtOHhhMjJhNWhsb3E3dzNjdnRmdmFqMW45YzJncmtkMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l1KVavPEqx602g1qg/giphy.gif",
+  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGJmY3I5NmFmNWJxYmp0eDJiaHA2MnhseXQ0ZG0xNzFmdjQxdWMxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3PziFyL8YT0QH6adLE/giphy.gif",
+  "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcW9oZmVjb2ZsMGY4MGlpeHQ2aTV2M3Ziem8xMWZvdTIxdGp5OGl0aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oVtM9jecnb1wZxhYCA/giphy.gif",
+  "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGJyNG0xcWI2dDlsajg3dDQ1YmxpZnVlczFjbXN0cmpyaXB5bjQyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a0N6ZmPmzGIPm/giphy.gif",
+  "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3I1ZGJtbWU5cXJjbmxod2U5eGk4dDJrZmp3bzBtM21pdWR0NDJ0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/C8K8hfep2yis/giphy.gif",
+  "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWVmMDk0YTE3ZmFlNjg1YzZkYjM3NjQ4N2RiYjU0NjdlZWNhNGYxZCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/TNeilKIVOAKmk/giphy.gif",
+  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWc2Z2N0bDgyNjlvM3VjZ2xqYmt5ajcxMHA3aXJ0M3l2dmd4c2M0aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xwmPkM9JrbLSU/giphy.gif"
 ];
 
 export { LOFI_GIFS };
