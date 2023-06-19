@@ -1,7 +1,7 @@
 {
   "name": "Lofi Tab",
   "description": "New tab to relax/study to",
-  "version": "2.0",
+  "version": "2.1",
   "manifest_version": 3,
   "permissions": ["geolocation"],
   "chrome_url_overrides": {
