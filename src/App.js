@@ -5,6 +5,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CircularProgress, Fade } from "@material-ui/core";
 import LofiHeader from "./features/LofiHeader";
 import { useBackgroundState } from "./providers/BackgroundProvider";
+import LofiUpdater from "./clients/LofiUpdater";
+import lscache from "lscache";
+
+const DEFAULT_LOFI_TUBE = "https://www.youtube.com/embed/rUxyKA_-grg";
+const LOFI_ID_CACHE = lscache.get("LOFI_VIDEO_ID");
+const ONE_DAY = 1440;
 
 const useStyles = makeStyles({
   lofiBg: {
@@ -27,6 +33,21 @@ const App = () => {
     play: false,
     loading: false,
   });
+
+  const [lofiTube, setLofiTube] = React.useState(DEFAULT_LOFI_TUBE);
+  React.useEffect(() => {
+    if (!LOFI_ID_CACHE) {
+      LofiUpdater.getLofiUrl().then((videoId) => {
+        const url = `https://www.youtube.com/embed/${videoId}`;
+        console.log(" URLLLLLLL : ", url);
+        lscache.set("LOFI_VIDEO_ID", videoId, ONE_DAY);
+        setLofiTube(url);
+      });
+      return;
+    }
+    setLofiTube(`https://www.youtube.com/embed/${LOFI_ID_CACHE}`);
+  }, []);
+
   const classes = useStyles({
     backgroundUrl: bgState.url,
   });
@@ -45,7 +66,7 @@ const App = () => {
               <iframe
                 width="560"
                 height="315"
-                src="https://www.youtube.com/embed/n61ULEU7CO0"
+                src={`${lofiTube}?modestbranding=1&rel=0&BlockCopyLink=true&autoplay=1`}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
