@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CircularProgress, Fade } from "@material-ui/core";
 import LofiHeader from "./features/LofiHeader";
 import { useBackgroundState } from "./providers/BackgroundProvider";
+import Clock from "./components/Clock";
+
 
 const useStyles = makeStyles({
   lofiBg: {
@@ -17,6 +19,9 @@ const useStyles = makeStyles({
     flexDirection: "column",
   },
   main: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     margin: "auto",
   },
 });
@@ -35,17 +40,15 @@ const App = () => {
     <div className={classes.lofiBg}>
       <LofiHeader playLofi={playLofi} setPlayLofi={setPlayLofi} />
       <main className={classes.main}>
+        <Clock />
         {playLofi.play && (
           <>
             {playLofi.loading && <CircularProgress />}
-            <Fade
-              in={!playLofi.loading}
-              style={{ display: playLofi.loading ? "none" : "" }}
-            >
+            <Fade in={!playLofi.loading}>
               <iframe
                 width="560"
                 height="315"
-                src="https://www.youtube.com/embed/n61ULEU7CO0"
+                src="https://www.youtube.com/watch?v=mmKguZohAck"
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
