@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
@@ -18,11 +18,11 @@ const theme = createTheme({
 });
 
 const mountNode = document.getElementById("app");
-ReactDOM.render(
+const domNode = ReactDOM.createRoot(mountNode);
+domNode.render(
   <ThemeProvider theme={theme}>
     <BackgroundProvider>
       <App />
     </BackgroundProvider>
-  </ThemeProvider>,
-  mountNode
+  </ThemeProvider>
 );

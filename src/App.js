@@ -7,7 +7,6 @@ import LofiHeader from "./features/LofiHeader";
 import { useBackgroundState } from "./providers/BackgroundProvider";
 import Clock from "./components/Clock";
 
-
 const useStyles = makeStyles({
   lofiBg: {
     background: (props) => `url(${props.backgroundUrl})`,
@@ -48,11 +47,11 @@ const App = () => {
               <iframe
                 width="560"
                 height="315"
-                src="https://www.youtube.com/watch?v=mmKguZohAck"
+                src="https://www.youtube.com/embed/mmKguZohAck?si=dHA_asAqBfxqyVFo"
                 title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
-                frameBorder="0"
                 onLoad={() =>
                   setPlayLofi((state) => ({ ...state, loading: false }))
                 }
